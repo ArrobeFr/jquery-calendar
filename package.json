@@ -1,0 +1,38 @@
+{
+  "name": "jquery-calendar",
+  "version": "1.0.0",
+  "description": "A responsive jquery calendar scheduler built with bootstrap and moment.js",
+  "main": "dist/js/jquery-calendar.min.js",
+  "scripts": {
+    "css-minify": "cleancss --level 2 --output dist/css/jquery-calendar.min.css src/css/jquery-calendar.css",
+    "js-minify": "uglifyjs --compress --mangle --toplevel --comments /^@/ --output dist/js/jquery-calendar.min.js src/js/jquery-calendar.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArrobeFr/jquery-calendar.git"
+  },
+  "keywords": [
+    "jquery",
+    "moment.js",
+    "bootstrap",
+    "calendar",
+    "scheduler",
+    "responsive"
+  ],
+  "author": "Arrobe Fr <contact@arrobe.fr> (https://www.arrobe.fr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArrobeFr/jquery-calendar/issues"
+  },
+  "homepage": "https://github.com/ArrobeFr/jquery-calendar#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "moment": "^2.22.1",
+    "jquery": "^3.3.1",
+    "jquery-touchswipe": "^1.6.18"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^4.1.11",
+    "uglify-js": "^3.3.26"
+  },
+}
