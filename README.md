@@ -3,7 +3,7 @@ A responsive jquery calendar scheduler built with bootstrap and moment.js
 
 ## Installation
 
-`npm install @arrobefr/jquery-calendar`
+`npm install arrobefr-jquery-calendar`
 
 ## Usage
 

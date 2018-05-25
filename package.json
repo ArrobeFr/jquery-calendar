@@ -1,6 +1,6 @@
 {
-  "name": "jquery-calendar",
-  "version": "1.0.0",
+  "name": "arrobefr-jquery-calendar",
+  "version": "1.0.1",
   "description": "A responsive jquery calendar scheduler built with bootstrap and moment.js",
   "main": "dist/js/jquery-calendar.min.js",
   "scripts": {
@@ -34,5 +34,5 @@
   "devDependencies": {
     "clean-css-cli": "^4.1.11",
     "uglify-js": "^3.3.26"
-  },
+  }
 }
