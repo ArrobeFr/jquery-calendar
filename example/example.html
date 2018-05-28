@@ -16,7 +16,7 @@
 <body>
   <script>
     $(document).ready(function(){
-      moment.locale('fr');
+      moment.locale('en');
       var now = moment();
 
       /**
@@ -229,7 +229,7 @@
           time: now.startOf('week').add(15, 'h').add(30, 'm').format('X'),
           title: 'Leo\'s holiday',
           content: 'yo',
-          category: 'fuck'
+          category: 'holiday'
         }
       ];
 
@@ -237,10 +237,11 @@
        * Init the calendar
        */
       var calendar = $('#calendar').Calendar({
-        locale: 'fr',
+        locale: 'en',
         weekday: {
           timeline: {
-            intervalMinutes: 30
+            intervalMinutes: 30,
+            fromHour: 9
           }
         },
         events: events,
@@ -252,33 +253,40 @@
        */
 
       $('#calendar').on('Calendar.init', function(event, instance, before, current, after){
+        console.log('event : Calendar.init');
         console.log(instance);
         console.log(before);
         console.log(current);
         console.log(after);
       });
       $('#calendar').on('Calendar.daynote-mouseenter', function(event, instance, elem){
+        console.log('event : Calendar.daynote-mouseenter');
         console.log(instance);
         console.log(elem);
       });
       $('#calendar').on('Calendar.daynote-mouseleave', function(event, instance, elem){
+        console.log('event : Calendar.daynote-mouseleave');
         console.log(instance);
         console.log(elem);
       });
       $('#calendar').on('Calendar.event-mouseenter', function(event, instance, elem){
+        console.log('event : Calendar.event-mouseenter');
         console.log(instance);
         console.log(elem);
       });
       $('#calendar').on('Calendar.event-mouseleave', function(event, instance, elem){
+        console.log('event : Calendar.event-mouseleave');
         console.log(instance);
         console.log(elem);
       });
       $('#calendar').on('Calendar.daynote-click', function(event, instance, elem, evt){
+        console.log('event : Calendar.daynote-click');
         console.log(instance);
         console.log(elem);
         console.log(evt);
       });
       $('#calendar').on('Calendar.event-click', function(event, instance, elem, evt){
+        console.log('event : Calendar.event-click');
         console.log(instance);
         console.log(elem);
         console.log(evt);
