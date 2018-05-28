@@ -1,6 +1,18 @@
 # jquery-calendar
 A responsive jquery calendar scheduler built with bootstrap and moment.js
 
+## Screenshots
+
+Screenshots are made using the `example/example.html`. There is events on one week only, so some parts of calendar are emtpy.
+
+### Desktop user
+
+![screenshots/Desktop user.gif](https://raw.githubusercontent.com/ArrobeFr/jquery-calendar/master/screenshots/Desktop%20user.gif)
+
+### Mobile user
+
+![screenshots/Mobile user.gif](https://raw.githubusercontent.com/ArrobeFr/jquery-calendar/master/screenshots/Mobile%20user.gif)
+
 ## Installation
 
 `npm install arrobefr-jquery-calendar`
