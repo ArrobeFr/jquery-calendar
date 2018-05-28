@@ -209,122 +209,125 @@ jQuery(document).ready(function($){
   };
 
   Calendar.prototype.defaultEvents = function() {
-    var eventMouseenterDefault = function(event, self, elem){
-      if (!event.isDefaultPrevented()){
-        if (parseInt(elem.css('top')) >= (elem.closest('ul').height() / 2) - self.conf.weekday.timeline.heightPx){
-          heightPx = parseInt(elem.css('top')) + parseInt(elem.css('height'));
-          elem
-            .css('z-index', 10)
-            .animate({
-              height:heightPx,
-              top:0,
-              width:'100%',
-              left:0
-            }, 50)
-          ;
-        }else{
-          heightPx = elem.closest('ul').height() - parseInt(elem.css('top'));
-          elem
-            .css('z-index', 10)
-            .animate({
-              height:heightPx,
-              width:'100%',
-              left:0
-            }, 50)
-          ;
-        }
-        elem.find('.event-name').removeClass('hidden');
-        elem.find('.event-content').removeClass('hidden');
-      }
-    };
-    $(self.element).on('Calendar.event-mouseenter', eventMouseenterDefault);
-    $(self.element).on('Calendar.daynote-mouseenter', eventMouseenterDefault);
-    var eventMouseleaveDefault = function(event, self, elem){
-      if (!event.isDefaultPrevented()){
-        elem
-          .css('z-index', 'auto')
-          .animate({
-            height:parseFloat(elem.attr('data-height'))+'px',
-            top:parseFloat(elem.attr('data-top')),
-            width:parseFloat(elem.attr('data-width'))+'%',
-            left:parseFloat(elem.attr('data-left'))+'%'
-          }, 50)
-        ;
-        elem.find('.event-content').addClass('hidden');
-      }
-    };
-    $(self.element).on('Calendar.event-mouseleave', eventMouseleaveDefault);
-    $(self.element).on('Calendar.daynote-mouseleave', eventMouseleaveDefault);
-    var eventClickDefault = function(event, self, elem, evt){
-      if (!event.isDefaultPrevented()){
-        modal = $(self.element).find('#calendar-modal');
-        rgb = self.hexToRgb(elem.attr('data-color'));
-        modal.css('background', 'rgba('+rgb.r+', '+rgb.g+', '+rgb.b+', 0.5)');
-        modal.find('.modal-title').append(elem.attr('data-title')+' ');
-        modal.find('.modal-body').append(
-          $('<h4>').append(
-            $(this).closest('.calendar-events-day').find('span').html()
-          ).append(
-            ' '
-          ).append(
-            $('<small>').text(elem.find('.event-date').text())
-          )
-        );
-        modal.find('.modal-body').append(elem.find('.event-content').html());
-        modal.modal('show');
-        modal.on('hidden.bs.modal', function (e) {
-          $(e.target).find('.modal-title').html('');
-          $(e.target).find('.modal-body').html('');
-        });
-      }
-    };
-    $(self.element).on('Calendar.event-click', eventClickDefault);
-    $(self.element).on('Calendar.daynote-click', eventClickDefault);
-    var eventCategoryClickDefault = function(event, self, elem){
-      if (!event.isDefaultPrevented()){
-        var events = self.element.find('.calendar-event[data-category="'+$(elem).text()+'"]');
-        if ($(elem).attr('data-clicked') == 'false'){
-          events.animate({
-            opacity: 0
-          }, 200, function(){
-            events.css('display', 'none');
-            $(elem).css('background-color', '#E0E0E0');
-            $(elem).attr('data-clicked', true);
-          });
-        }
-        if ($(elem).attr('data-clicked') == 'true'){
-          events.css('display', 'list-item');
-          $(elem).css('background-color', $(elem).attr('data-color'));
-          events.animate({
-            opacity: 1
-          }, 200, function(){
-            $(elem).attr('data-clicked', false);
-          });
-        }
-      }
-    };
-    $(self.element).on('Calendar.category-event-click', eventCategoryClickDefault);
-    $(self.element).on('Calendar.category-daynote-click', eventCategoryClickDefault);
-    var eventCategoryMouseenterDefault = function(event, self, elem){
-      if (!event.isDefaultPrevented()){
-        self.element.find('.calendar-event').each(function(i, e){
-          if ($(e).attr('data-category') != elem.text()){
-            $(e).css('opacity', 0.2);
+    if (this.binded == undefined){
+      var eventMouseenterDefault = function(event, self, elem){
+        if (!event.isDefaultPrevented()){
+          if (parseInt(elem.css('top')) >= (elem.closest('ul').height() / 2) - self.conf.weekday.timeline.heightPx){
+            heightPx = parseInt(elem.css('top')) + parseInt(elem.css('height'));
+            elem
+              .css('z-index', 10)
+              .animate({
+                height:heightPx,
+                top:0,
+                width:'100%',
+                left:0
+              }, 50)
+            ;
+          }else{
+            heightPx = elem.closest('ul').height() - parseInt(elem.css('top'));
+            elem
+              .css('z-index', 10)
+              .animate({
+                height:heightPx,
+                width:'100%',
+                left:0
+              }, 50)
+            ;
           }
-        });
-      }
-    };
-    $(self.element).on('Calendar.category-event-mouseenter', eventCategoryMouseenterDefault);
-    $(self.element).on('Calendar.category-daynote-mouseenter', eventCategoryMouseenterDefault);
-    var eventCategoryMouseleaveDefault = function(event, self, elem){
-      if (!event.isDefaultPrevented()){
-        self.element.find('.calendar-event').each(function(i, e){
-          $(e).css('opacity', 1);
-        });
-      }
-    };
-    $(self.element).on('Calendar.category-event-mouseleave', eventCategoryMouseleaveDefault);
-    $(self.element).on('Calendar.category-daynote-mouseleave', eventCategoryMouseleaveDefault);
+          elem.find('.event-name').removeClass('hidden');
+          elem.find('.event-content').removeClass('hidden');
+        }
+      };
+      $(self.element).off('Calendar.event-mouseenter', eventMouseenterDefault).on('Calendar.event-mouseenter', eventMouseenterDefault);
+      $(self.element).off('Calendar.daynote-mouseenter', eventMouseenterDefault).on('Calendar.daynote-mouseenter', eventMouseenterDefault);
+      var eventMouseleaveDefault = function(event, self, elem){
+        if (!event.isDefaultPrevented()){
+          elem
+            .css('z-index', 'auto')
+            .animate({
+              height:parseFloat(elem.attr('data-height'))+'px',
+              top:parseFloat(elem.attr('data-top')),
+              width:parseFloat(elem.attr('data-width'))+'%',
+              left:parseFloat(elem.attr('data-left'))+'%'
+            }, 50)
+          ;
+          elem.find('.event-content').addClass('hidden');
+        }
+      };
+      $(self.element).off('Calendar.event-mouseleave', eventMouseleaveDefault).on('Calendar.event-mouseleave', eventMouseleaveDefault);
+      $(self.element).off('Calendar.daynote-mouseleave', eventMouseleaveDefault).on('Calendar.daynote-mouseleave', eventMouseleaveDefault);
+      var eventClickDefault = function(event, self, elem, evt){
+        if (!event.isDefaultPrevented()){
+          modal = $(self.element).find('#calendar-modal');
+          rgb = self.hexToRgb(elem.attr('data-color'));
+          modal.css('background', 'rgba('+rgb.r+', '+rgb.g+', '+rgb.b+', 0.5)');
+          modal.find('.modal-title').append(elem.attr('data-title')+' ');
+          modal.find('.modal-body').append(
+            $('<h4>').append(
+              $(this).closest('.calendar-events-day').find('span').html()
+            ).append(
+              ' '
+            ).append(
+              $('<small>').text(elem.find('.event-date').text())
+            )
+          );
+          modal.find('.modal-body').append(elem.find('.event-content').html());
+          modal.modal('show');
+          modal.on('hidden.bs.modal', function (e) {
+            $(e.target).find('.modal-title').html('');
+            $(e.target).find('.modal-body').html('');
+          });
+        }
+      };
+      $(self.element).off('Calendar.event-click', eventClickDefault).on('Calendar.event-click', eventClickDefault);
+      $(self.element).off('Calendar.daynote-click', eventClickDefault).on('Calendar.daynote-click', eventClickDefault);
+      var eventCategoryClickDefault = function(event, self, elem){
+        if (!event.isDefaultPrevented()){
+          var events = self.element.find('.calendar-event[data-category="'+$(elem).text()+'"]');
+          if ($(elem).attr('data-clicked') == 'false'){
+            events.animate({
+              opacity: 0
+            }, 200, function(){
+              events.css('display', 'none');
+              $(elem).css('background-color', '#E0E0E0');
+              $(elem).attr('data-clicked', true);
+            });
+          }
+          if ($(elem).attr('data-clicked') == 'true'){
+            events.css('display', 'list-item');
+            $(elem).css('background-color', $(elem).attr('data-color'));
+            events.animate({
+              opacity: 1
+            }, 200, function(){
+              $(elem).attr('data-clicked', false);
+            });
+          }
+        }
+      };
+      $(self.element).off('Calendar.category-event-click', eventCategoryClickDefault).on('Calendar.category-event-click', eventCategoryClickDefault);
+      $(self.element).off('Calendar.category-daynote-click', eventCategoryClickDefault).on('Calendar.category-daynote-click', eventCategoryClickDefault);
+      var eventCategoryMouseenterDefault = function(event, self, elem){
+        if (!event.isDefaultPrevented()){
+          self.element.find('.calendar-event').each(function(i, e){
+            if ($(e).attr('data-category') != elem.text()){
+              $(e).css('opacity', 0.2);
+            }
+          });
+        }
+      };
+      $(self.element).off('Calendar.category-event-mouseenter', eventCategoryMouseenterDefault).on('Calendar.category-event-mouseenter', eventCategoryMouseenterDefault);
+      $(self.element).off('Calendar.category-daynote-mouseenter', eventCategoryMouseenterDefault).on('Calendar.category-daynote-mouseenter', eventCategoryMouseenterDefault);
+      var eventCategoryMouseleaveDefault = function(event, self, elem){
+        if (!event.isDefaultPrevented()){
+          self.element.find('.calendar-event').each(function(i, e){
+            $(e).css('opacity', 1);
+          });
+        }
+      };
+      $(self.element).off('Calendar.category-event-mouseleave', eventCategoryMouseleaveDefault).on('Calendar.category-event-mouseleave', eventCategoryMouseleaveDefault);
+      $(self.element).off('Calendar.category-daynote-mouseleave', eventCategoryMouseleaveDefault).on('Calendar.category-daynote-mouseleave', eventCategoryMouseleaveDefault);
+      this.binded = true;
+    }
   };
 
   Calendar.prototype.weekDrawTime = function() {
