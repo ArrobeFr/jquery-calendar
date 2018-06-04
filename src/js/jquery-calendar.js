@@ -1374,7 +1374,7 @@ jQuery(document).ready(function($){
   };
 
   Calendar.prototype.addEvents = function(events) {
-    this.events.concat(events);
+    this.events = this.events.concat(events);
     this.events.sort(function(a,b) {return (a.start > b.start) ? 1 : -1;});
   };
 
