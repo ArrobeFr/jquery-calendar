@@ -889,7 +889,7 @@ jQuery(document).ready(function($){
     for (var i=0; i<classes.length; i++){
       li.addClass(classes[i]);
     }
-    li.attr('data-index', i);
+    li.attr('data-index', index);
     li.attr('data-start', start);
     li.attr('data-end', end);
     li.attr('data-title', title);
