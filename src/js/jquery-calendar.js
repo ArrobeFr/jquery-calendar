@@ -1074,7 +1074,7 @@ jQuery(document).ready(function($){
           $(self.element).trigger('Calendar.daynote-click', [
             self,
             elem,
-            self.events[parseInt(elem.attr('data-index'))]
+            self.daynotes[parseInt(elem.attr('data-index'))]
           ]);
         }else{
           $(self.element).trigger('Calendar.event-click', [
