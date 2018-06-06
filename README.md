@@ -15,7 +15,7 @@ Screenshots are made using the `example/example.html`. There is events on one we
 
 ## Demo
 
-[Here is a full demo](https://rawgit.com/ArrobeFr/jquery-calendar/master/example/demo.html)
+[Here is a full demo](https://cdn.rawgit.com/ArrobeFr/jquery-calendar/b5a5f7c0/example/demo.html)
 
 ## Installation
 
