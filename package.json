@@ -1,6 +1,6 @@
 {
   "name": "arrobefr-jquery-calendar",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A responsive jquery calendar scheduler built with bootstrap and moment.js",
   "main": "dist/js/jquery-calendar.min.js",
   "scripts": {
