@@ -13,9 +13,24 @@ Screenshots are made using the `example/example.html`. There is events on one we
 
 ![screenshots/Mobile user.gif](https://raw.githubusercontent.com/ArrobeFr/jquery-calendar/master/screenshots/Mobile%20user.gif)
 
+## Demo
+
+[Here is a full demo](https://rawgit.com/ArrobeFr/jquery-calendar/master/example/demo.html)
+
 ## Installation
 
+### Using NPM
+
 `npm install arrobefr-jquery-calendar`
+
+### Using a CDN
+
+*use of the latest version on cdn.jsdelivr.net*
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.5/dist/js/jquery-calendar.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.5/dist/css/jquery-calendar.min.css">
+```
 
 ## Usage
 

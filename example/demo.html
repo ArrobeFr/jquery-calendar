@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.22.1/min/moment-with-locales.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-touchswipe@1.6.18/jquery.touchSwipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.47/build/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar/dist/js/jquery-calendar.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar/dist/css/jquery-calendar.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pouchdb@6.4.3/dist/pouchdb.min.js"></script>
+  <title>Calendar</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <!-- A title ! -->
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Calendar demo</h1>
+      </div>
+    </div>
+    <!-- Button to open create modal -->
+    <div class="row">
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-create">
+          <i class="glyphicon glyphicon-plus"></i> Create an event
+        </button>
+      </div>
+    </div>
+    <!-- The calendar -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="calendar"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Create modal -->
+  <div id="modal-create" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Create an event</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12">
+                <!-- Create form -->
+                <form id="form-create" class="form">
+                  <input type="text" placeholder="From" class="start form-control dtp">
+                  <input type="text" placeholder="To" class="end form-control dtp">
+                  <input type="text" placeholder="Title" class="title form-control">
+                  <textarea placeholder="Content" class="content form-control"></textarea>
+                  <input type="text" placeholder="Category" class="category form-control">
+                  <!-- Create button -->
+                  <button type="submit" class="btn btn-success">
+                    <i class="glyphicon glyphicon-plus"></i> Create
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Update and delete modal -->
+  <div id="modal-update" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Update an event</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12">
+                <!-- Update form -->
+                <form id="form-update" class="form">
+                  <input type="hidden" class="_id">
+                  <input type="hidden" class="_rev">
+                  <input type="text" placeholder="From" class="start form-control dtp">
+                  <input type="text" placeholder="To" class="end form-control dtp">
+                  <input type="text" placeholder="Title" class="title form-control">
+                  <textarea placeholder="Content" class="content form-control"></textarea>
+                  <input type="text" placeholder="Category" class="category form-control">
+                  <!-- Update button -->
+                  <button type="submit" class="btn btn-warning">
+                    <i class="glyphicon glyphicon-pencil"></i> Update
+                  </button>
+                  <!-- Update button -->
+                  <button type="button" class="btn btn-danger pull-right delete">
+                    <i class="glyphicon glyphicon-trash"></i> Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      $('.dtp').datetimepicker();
+
+      var Calendar = $('#calendar').Calendar({locale: 'en'});
+      Calendar.init();
+
+      var eventsDB = new PouchDB('events');
+
+      function UUID4(){
+        function S4() {
+          return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        }
+        return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+      }
+
+      /**
+       * GET
+       */
+      eventsDB.allDocs({
+        include_docs: true
+      }).then(function(result){
+        var events = [];
+        for (var i=0; i<result.rows.length; i++){
+          events.push({
+            _id: result.rows[i].doc._id,
+            _rev: result.rows[i].doc._rev,
+            start: result.rows[i].doc.start,
+            end: result.rows[i].doc.end,
+            title: result.rows[i].doc.title,
+            content: result.rows[i].doc.content,
+            category: result.rows[i].doc.category
+          });
+        }
+        Calendar.addEvents(events);
+        Calendar.init();
+      }).catch(function (err){
+        console.error(err);
+      });
+
+      /**
+       * CREATE
+       */
+      $('#form-create').on('submit', function(event){
+        event.preventDefault();
+        var form = $(event.target);
+        var e = {
+          _id: UUID4(),
+          start: form.find('.start').data("DateTimePicker").date().unix(),
+          end: form.find('.end').data("DateTimePicker").date().unix(),
+          title: form.find('.title').val(),
+          content: form.find('.content').val().replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2'),
+          category: form.find('.category').val()
+        };
+        eventsDB.put(e).then(function(response){
+          e._rev = response.rev;
+          Calendar.addEvents(e);
+          Calendar.init();
+          $('#modal-create').modal('hide');
+        }).catch(function(err){
+          console.error(err);
+        });
+      });
+
+      /**
+       * UPDATE and DELETE event : replace the default modal by our modal (#modal-update)
+       */
+      $('#calendar').unbind('Calendar.event-click').on('Calendar.event-click', function(event, instance, elem, evt){
+        $('#form-update').find('._id').val(evt._id);
+        $('#form-update').find('._rev').val(evt._rev);
+        $('#form-update').find('.start').data("DateTimePicker").date(moment.unix(evt.start));
+        $('#form-update').find('.end').data("DateTimePicker").date(moment.unix(evt.end));
+        $('#form-update').find('.title').val(evt.title);
+        $('#form-update').find('.content').val(evt.content.replace(/<br>/g, '\n'));
+        $('#form-update').find('.category').val(evt.category);
+        $('#modal-update').modal('show');
+      });
+
+      /**
+       * UPDATE
+       */
+      $('#form-update').on('submit', function(event){
+        event.preventDefault();
+        var form = $(event.target);
+        var e = {
+          _id: form.find('._id').val(),
+          _rev: form.find('._rev').val(),
+          start: form.find('.start').data("DateTimePicker").date().unix(),
+          end: form.find('.end').data("DateTimePicker").date().unix(),
+          title: form.find('.title').val(),
+          content: form.find('.content').val().replace(/\n/g, '<br>'),
+          category: form.find('.category').val()
+        };
+        eventsDB.put(e).then(function(response){
+          var events = Calendar.getEvents();
+          for (var i=0; i<events.length; i++){
+            if (events[i]._id == e._id){
+              events[i]._rev = response.rev;
+              events[i].start = e.start;
+              events[i].end = e.end;
+              events[i].title = e.title;
+              events[i].content = e.content;
+              events[i].category = e.category;
+            }
+          }
+          Calendar.init();
+          $('#modal-update').modal('hide');
+        }).catch(function(err){
+          console.error(err);
+        });
+      });
+
+      /**
+       * DELETE
+       */
+      $('#form-update').find('.delete').click(function(){
+        var form = $('#form-update');
+        eventsDB.remove(form.find('._id').val(), form.find('._rev').val()).then(function(response){
+          var events = Calendar.getEvents();
+          for (var i=0; i<events.length; i++){
+            if (events[i]._id == response.id){
+              events.splice(i, 1);
+            }
+          }
+          Calendar.init();
+          $('#modal-update').modal('hide');
+        }).catch(function(err){
+          console.error(err);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
