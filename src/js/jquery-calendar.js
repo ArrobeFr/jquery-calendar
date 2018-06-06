@@ -1302,6 +1302,7 @@ jQuery(document).ready(function($){
 
   Calendar.prototype.determineEventsCategories = function() {
     var categories = this.getEventsCategories();
+    this.eventCategoryColor = [];
     for (var i=0; i<categories.length; i++){
       this.getEventCategoryColor(categories[i]);
     }
@@ -1325,6 +1326,7 @@ jQuery(document).ready(function($){
 
   Calendar.prototype.determineDaynotesCategories = function() {
     var categories = this.getDaynotesCategories();
+    this.daynoteCategoryColor = [];
     for (var i=0; i<categories.length; i++){
       this.getDaynoteCategoryColor(categories[i]);
     }
