@@ -1,6 +1,6 @@
 {
   "name": "arrobefr-jquery-calendar",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A responsive jquery calendar scheduler built with bootstrap and moment.js",
   "main": "dist/js/jquery-calendar.min.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "url": "git+https://github.com/ArrobeFr/jquery-calendar.git"
   },
   "keywords": [
-    "jquery",
+    "jquery-plugin",
+    "ecosystem:jquery",
     "moment.js",
     "bootstrap",
     "calendar",
@@ -34,5 +35,11 @@
   "devDependencies": {
     "clean-css-cli": "^4.1.11",
     "uglify-js": "^3.3.26"
-  }
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ]
 }
