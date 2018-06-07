@@ -1097,7 +1097,6 @@ jQuery(document).ready(function($){
         if (this.conf.weekday.timeline.toHour < 23){
           this.conf.weekday.timeline.toHour++;
         }
-        console.log(this.conf.weekday.timeline.toHour);
       }
     }
   };
