@@ -1092,8 +1092,12 @@ jQuery(document).ready(function($){
       if (parseInt(moment.unix(this.events[j].start).format('HH')) < this.conf.weekday.timeline.fromHour){
         this.conf.weekday.timeline.fromHour = parseInt(moment.unix(this.events[j].start).format('HH'));
       }
-      if (parseInt(moment.unix(this.events[j].end).format('HH')) > this.conf.weekday.timeline.toHour){
-        this.conf.weekday.timeline.toHour = parseInt(moment.unix(this.events[j].end).format('HH'));
+      if (parseInt(this.events[j].end) > parseInt(moment.unix(this.events[j].end).startOf('day').add(this.conf.weekday.timeline.toHour, 'hour').format('X'))){
+        this.conf.weekday.timeline.toHour = parseInt(moment.unix(this.events[j].end).hour());
+        if (this.conf.weekday.timeline.toHour < 23){
+          this.conf.weekday.timeline.toHour++;
+        }
+        console.log(this.conf.weekday.timeline.toHour);
       }
     }
   };
@@ -1494,7 +1498,7 @@ jQuery(document).ready(function($){
   // Initialization
   jQuery.extend(jQuery.fn, {
     Calendar: function(objArgs){
-      var c = new Calendar($(this), objArgs);
+      var c = new Calendar($(this), (objArgs === undefined) ? {} : objArgs);
       objSchedulesPlan.push(c);
       return c;
     }
