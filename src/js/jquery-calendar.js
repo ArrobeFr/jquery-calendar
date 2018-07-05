@@ -143,6 +143,10 @@ jQuery(document).ready(function($){
     this.eventCategoryColor = [];
     this.daynoteCategoryColor = [];
 
+    // Create array to associate colors and categories as defined by setEventCategoriesColors or setDaynoteCategoriesColors
+    this.userEventCategoryColor = [];
+    this.userDaynoteCategoryColor = [];
+
     // Load events
     this.setEvents((Args.events) ? Args.events : []);
 
@@ -1305,7 +1309,7 @@ jQuery(document).ready(function($){
 
   Calendar.prototype.determineEventsCategories = function() {
     var categories = this.getEventsCategories();
-    this.eventCategoryColor = [];
+    this.eventCategoryColor = (this.userEventCategoryColor.length > 0) ? this.userEventCategoryColor : [];
     for (var i=0; i<categories.length; i++){
       this.getEventCategoryColor(categories[i]);
     }
@@ -1320,7 +1324,7 @@ jQuery(document).ready(function($){
   };
 
   Calendar.prototype.setEventCategoriesColors = function(categoriesColors) {
-    this.eventCategoryColor = categoriesColors;
+    this.userEventCategoryColor = categoriesColors;
   };
 
   Calendar.prototype.getDaynotesCategories = function() {
@@ -1329,7 +1333,7 @@ jQuery(document).ready(function($){
 
   Calendar.prototype.determineDaynotesCategories = function() {
     var categories = this.getDaynotesCategories();
-    this.daynoteCategoryColor = [];
+    this.daynoteCategoryColor = (this.userDaynoteCategoryColor.length > 0) ? this.userDaynoteCategoryColor : [];
     for (var i=0; i<categories.length; i++){
       this.getDaynoteCategoryColor(categories[i]);
     }
@@ -1344,7 +1348,7 @@ jQuery(document).ready(function($){
   };
 
   Calendar.prototype.setDaynoteCategoriesColors = function(categoriesColors) {
-    this.daynoteCategoryColor = categoriesColors;
+    this.userDaynoteCategoryColor = categoriesColors;
   };
 
   Calendar.prototype.getEventColors = function() {
