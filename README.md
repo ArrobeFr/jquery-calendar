@@ -1,5 +1,10 @@
 # jquery-calendar
+
 A responsive jquery calendar scheduler built with bootstrap and moment.js
+
+## Switch to bootstrap 4
+
+It was released with bootstrap 4 ! [Here it is](https://github.com/ArrobeFr/jquery-calendar-bs4)
 
 ## Screenshots
 
@@ -28,8 +33,8 @@ Screenshots are made using the `example/example.html`. There is events on one we
 *use of the latest version on cdn.jsdelivr.net*
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.5/dist/js/jquery-calendar.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.5/dist/css/jquery-calendar.min.css">
+<script src="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.10/dist/js/jquery-calendar.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.10/dist/css/jquery-calendar.min.css">
 ```
 
 ## Usage
