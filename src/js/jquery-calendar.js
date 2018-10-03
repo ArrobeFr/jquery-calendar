@@ -163,6 +163,7 @@ jQuery(document).ready(function($){
     // Init
     this.element = element;
     this.initTime = false;
+    return this;
   }
 
   Calendar.prototype.init = function() {
@@ -210,6 +211,7 @@ jQuery(document).ready(function($){
     this.defaultEvents();
     this.element.removeClass('loading');
     this.initTime = (Date.now()-millis)+'ms';
+    return this;
   };
 
   Calendar.prototype.defaultEvents = function() {
@@ -352,14 +354,15 @@ jQuery(document).ready(function($){
     time = moment(moment()).startOf('Week');
     time.add(this.conf.weekday.timeline.fromHour, 'H');
 
-    i = this.conf.weekday.timeline.fromHour;
-    while (i < this.conf.weekday.timeline.toHour){
+    var limit = (((this.conf.weekday.timeline.toHour+1)*60) - (this.conf.weekday.timeline.fromHour * 60)) / this.conf.weekday.timeline.intervalMinutes;
+    var i = 0;
+    while (i < limit){
       li = $('<li>');
       li.append($('<span>').text(time.format(this.conf.weekday.timeline.format)));
       li.height(this.conf.weekday.timeline.heightPx);
       ul.append(li);
-      i = parseInt(time.format('HH'));
       time.add(this.conf.weekday.timeline.intervalMinutes, 'm');
+      i++;
     }
   };
 
@@ -424,7 +427,7 @@ jQuery(document).ready(function($){
       li.append(div);
       li.attr('data-time', time.startOf('day').format('X'));
       li.append($('<ul>'));
-      li.find('ul').height(((60 / this.conf.weekday.timeline.intervalMinutes) * (this.conf.weekday.timeline.toHour - this.conf.weekday.timeline.fromHour) * this.conf.weekday.timeline.heightPx) + this.conf.weekday.timeline.heightPx);
+      li.find('ul').height(((60 / this.conf.weekday.timeline.intervalMinutes) * (this.conf.weekday.timeline.toHour - this.conf.weekday.timeline.fromHour) * this.conf.weekday.timeline.heightPx) + ((60 / this.conf.weekday.timeline.intervalMinutes) * this.conf.weekday.timeline.heightPx));
       ul.append(li);
     }
 
@@ -831,8 +834,9 @@ jQuery(document).ready(function($){
       day = false;
       fromHour = this.conf.weekday.timeline.fromHour;
       toHour = this.conf.weekday.timeline.toHour;
+      interval = this.conf.weekday.timeline.intervalMinutes;
       $(this.element).find('.calendar-events-day').each(function(i, d){
-        if (e.start >= (parseInt($(d).attr('data-time'))+fromHour*60*60) && e.end <= (parseInt($(d).attr('data-time'))+toHour*60*60)){
+        if (e.start >= (parseInt($(d).attr('data-time'))+fromHour*60*60) && e.end <= (parseInt($(d).attr('data-time'))+toHour*60*60)+((60/interval)*interval*60)){
           day = d;
         }
       });
@@ -1325,6 +1329,7 @@ jQuery(document).ready(function($){
 
   Calendar.prototype.setEventCategoriesColors = function(categoriesColors) {
     this.userEventCategoryColor = categoriesColors;
+    return this;
   };
 
   Calendar.prototype.getDaynotesCategories = function() {
@@ -1360,6 +1365,7 @@ jQuery(document).ready(function($){
     if (this.conf.colors.random){
       this.conf.colors.events.sort(function() {return 0.5 - Math.random();});
     }
+    return this;
   };
 
   Calendar.prototype.getDaynoteColors = function() {
@@ -1371,6 +1377,7 @@ jQuery(document).ready(function($){
     if (this.conf.colors.random){
       this.conf.colors.daynotes.sort(function() {return 0.5 - Math.random();});
     }
+    return this;
   };
 
   Calendar.prototype.getEvents = function() {
@@ -1380,11 +1387,13 @@ jQuery(document).ready(function($){
   Calendar.prototype.setEvents = function(events) {
     this.events = (events) ? events : [];
     this.events.sort(function(a,b) {return (a.start > b.start) ? 1 : -1;});
+    return this;
   };
 
   Calendar.prototype.addEvents = function(events) {
     this.events = this.events.concat(events);
     this.events.sort(function(a,b) {return (a.start > b.start) ? 1 : -1;});
+    return this;
   };
 
   Calendar.prototype.getDaynotes = function() {
@@ -1394,11 +1403,13 @@ jQuery(document).ready(function($){
   Calendar.prototype.setDaynotes = function(daynotes) {
     this.daynotes = (daynotes) ? daynotes : [];
     this.daynotes.sort(function(a,b) {return (a.start > b.start) ? 1 : -1;});
+    return this;
   };
 
   Calendar.prototype.addDaynotes = function(daynotes) {
     this.daynotes.concat(daynotes);
     this.daynotes.sort(function(a,b) {return (a.start > b.start) ? 1 : -1;});
+    return this;
   };
 
   Calendar.prototype.getInitTime = function() {
@@ -1457,6 +1468,7 @@ jQuery(document).ready(function($){
 
   Calendar.prototype.setTimestamp = function(timestamp) {
     this.conf.unixTimestamp = parseInt(timestamp);
+    return this;
   };
 
   Calendar.prototype.getView = function(){
@@ -1467,6 +1479,7 @@ jQuery(document).ready(function($){
     if (view == 'day' || view == 'week' || view == 'month') {
       this.conf.view = view;
     }
+    return this;
   };
 
   Calendar.prototype.miscDedupeArray = function(a) {

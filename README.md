@@ -33,8 +33,8 @@ Screenshots are made using the `example/example.html`. There is events on one we
 *use of the latest version on cdn.jsdelivr.net*
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.10/dist/js/jquery-calendar.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.10/dist/css/jquery-calendar.min.css">
+<script src="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.11/dist/js/jquery-calendar.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/arrobefr-jquery-calendar@1.0.11/dist/css/jquery-calendar.min.css">
 ```
 
 ## Usage
@@ -174,31 +174,31 @@ var result = calendar.function(); // It is just an example, replace "function" b
 
 |Function|Arguments|Return|Note|
 |--|--|--|--|
-|`init`|||**It must be called after any modification to re-draw the calendar**|
+|`init`||*Calendar instance*|**It must be called after any modification to re-draw the calendar**|
 |`getEvents`||Array of events objects|*Returns events loaded in this instance of Calendar*|
-|`setEvents`|Array of events objects||**It replaces events !**|
-|`addEvents`|Array of events objects||*It just adds events (it not replaces events)*|
+|`setEvents`|Array of events objects|*Calendar instance*|**It replaces events !**|
+|`addEvents`|Array of events objects|*Calendar instance*|*It just adds events (it not replaces events)*|
 |`getDaynotes`||Array of day notes objects|*Returns day notes loaded in this instance of Calendar*|
-|`setDaynotes`|Array of day notes objects||**It replaces day notes !**|
-|`addDaynotes`|Array of day notes objects||*It just adds day notes (it not replaces day notes)*|
+|`setDaynotes`|Array of day notes objects|*Calendar instance*|**It replaces day notes !**|
+|`addDaynotes`|Array of day notes objects|*Calendar instance*|*It just adds day notes (it not replaces day notes)*|
 |`getInitTime`||String : milliseconds|*It returns the time with string "ms"*|
 |`getViewInterval`||Array of 2 integers (unix timestamps)|*It returns the from and to timestamp of current view*|
 |`getNextViewInterval`||Array of 2 integers (unix timestamps)|*It returns the from and to timestamp of the next view (if user click or swipe to right)*|
 |`getPrevViewInterval`||Array of 2 integers (unix timestamps)|*It returns the from and to timestamp of the previous view (if user click or swipe to left)*|
 |`getTimestamp`||Integer : the current unix timestamp viewed||
-|`setTimestamp`|Integer : a unix timestamp||*It not affects the view, you have to call init to display the update*|
+|`setTimestamp`|Integer : a unix timestamp|*Calendar instance*|*It not affects the view, you have to call init to display the update*|
 |`getView`||String : the current view|*It returns 'day', 'week' or 'month'*|
-|`setView`|String : 'day' or 'week' or 'month'||*It not affects the view, you have to call init to display the update*|
+|`setView`|String : 'day' or 'week' or 'month'|*Calendar instance*|*It not affects the view, you have to call init to display the update*|
 |`getEventCategoryColor`|String : any category|String : a hexadecimal color prepended by #|It affects events only. Return example : `'#C62828'`|
 |`getEventCategoriesColors`||Array of objects|It affects events only. Return example : `[{category:"Personnal", color: "#FF8F00"}, {category:"Professionnal", color:"#AD1457"}]`|
-|`setEventCategoriesColors`|Array of objects||It affects events only. *See example of* `getEventCategoriesColors`|
+|`setEventCategoriesColors`|Array of objects|*Calendar instance*|It affects events only. *See example of* `getEventCategoriesColors`|
 |`getDaynoteCategoryColor`|String : any category|String : a hexadecimal color prepended by #|It affects day notes only. Return example : `'#EF9A9A'`|
 |`getDaynoteCategoriesColors`||Array of objects|It affects day notes only. Return example : `[{category:"Public holiday", color: "#B39DDB"}]`|
-|`setDaynoteCategoriesColors`|Array of objects||It affects day notes only. *See example of* `getDaynoteCategoriesColors`|
+|`setDaynoteCategoriesColors`|Array of objects|*Calendar instance*|It affects day notes only. *See example of* `getDaynoteCategoriesColors`|
 |`getEventColors`||Array of strings|It affects the events only. It returns an array of hexadecimal colors prepended by a #, example : `["#FF8F00", "#9E9D24", "#EF6C00"]`|
-|`setEventColors`|Array of strings||It affects the events only.  *See example of* `getEventColors`|
+|`setEventColors`|Array of strings|*Calendar instance*|It affects the events only.  *See example of* `getEventColors`|
 |`getDaynoteColors`||Array of strings|It affects the day notes only. It returns an array of hexadecimal colors prepended by a #, example : `["#FF8F00", "#9E9D24", "#EF6C00"]`|
-|`setDaynoteColors`|Array of strings||It affects the day notes only.  *See example of* `getEventColors`|
+|`setDaynoteColors`|Array of strings|*Calendar instance*|It affects the day notes only.  *See example of* `getEventColors`|
 
 #### Events
 
