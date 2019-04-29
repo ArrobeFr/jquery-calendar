@@ -8,7 +8,7 @@ It was released with bootstrap 4 ! [Here it is](https://github.com/ArrobeFr/jque
 
 ## Screenshots
 
-Screenshots are made using the `example/example.html`. There is events on one week only, so some parts of calendar are emtpy.
+Screenshots are made using the `example/example.html`. There is events on one week only, so some parts of calendar are empty.
 
 ### Desktop user
 
