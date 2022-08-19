@@ -90,7 +90,7 @@ Screenshots are made using the `example/example.html`. There is events on one we
 
 ### HTML
 
-Add a div somewhere that is unique, with an id for example
+Add a [div](https://www.scaler.com/topics/div-tag-in-html/) somewhere that is unique, with an id for example
 
 ```html
 <div id="calendar"></div>
